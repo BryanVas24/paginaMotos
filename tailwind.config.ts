@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "alice-blue": "#F4FAFF",
+        platinum: "#DEE7E7",
+        thistle: "#B7ADCF",
+        "paynes-gray": "#4F646F",
+        "davys-gray": "#535657",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
