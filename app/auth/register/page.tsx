@@ -12,9 +12,9 @@ export default function RegisterPage() {
           alt="Imagen de registro"
         />
       </section>
-      <section>
+      <section className="flex flex-col gap-5 items-center">
         <h1 className="text-5xl font-black text-davys-gray ">Registrate</h1>
-        <p className="text-2xl font-light text-davys-gray mt-5 mb-5">
+        <p className="text-2xl font-light text-davys-gray ">
           Para adquirir una motocileta {""}
           <span className=" text-paynes-gray font-bold">
             {" "}
