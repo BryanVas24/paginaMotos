@@ -1,6 +1,6 @@
 "use client";
 import ErrorMessage from "@/components/ErrorMessage";
-import { UserRegisterForm } from "@/types";
+import { UserRegisterForm } from "@/src/types";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -25,7 +25,6 @@ export default function RegisterPage() {
   });
   //función para hacer el registro del usuario
   const RegistUserFunc = (formData: UserRegisterForm) => {
-    console.log(formData.email);
     reset();
   };
   return (
