@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-
+import { ToastContainer } from "react-toastify";
 import "./globals.css";
 import NavBar from "@/components/ui/NavBar";
 
@@ -18,6 +18,7 @@ export default function RootLayout({
       <body className="bg-alice-blue">
         <NavBar />
         {children}
+        <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
       </body>
     </html>
   );

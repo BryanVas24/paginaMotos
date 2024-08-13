@@ -1,12 +1,13 @@
 "use client";
 import ErrorMessage from "@/components/ErrorMessage";
 import { UserRegisterForm } from "@/src/types";
-
 import Image from "next/image";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 export default function RegisterPage() {
-  //valores iniciales del formulario
   const initialValues: UserRegisterForm = {
     name: "",
     email: "",
@@ -14,7 +15,6 @@ export default function RegisterPage() {
     phone: "",
   };
 
-  //Tomando lo necesario
   const {
     register,
     reset,
@@ -23,10 +23,32 @@ export default function RegisterPage() {
   } = useForm<UserRegisterForm>({
     defaultValues: initialValues,
   });
-  //función para hacer el registro del usuario
-  const RegistUserFunc = (formData: UserRegisterForm) => {
-    reset();
+
+  const router = useRouter();
+
+  const RegistUserFunc = async (formData: UserRegisterForm) => {
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        toast.success("Usuario registrado correctamente");
+        reset();
+        router.push("/auth/login"); // Redirige al login después de registrar
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.error || "Error al registrar el usuario");
+      }
+    } catch (error) {
+      toast.error("Error al registrar el usuario");
+    }
   };
+
   return (
     <main className="grid grid-cols-1 md:grid-cols-2">
       <section className="flex justify-center items-center">
@@ -40,10 +62,10 @@ export default function RegisterPage() {
       <section className="flex flex-col gap-5 items-center">
         <h1 className="text-5xl font-black text-davys-gray ">Registrate</h1>
         <p className="text-2xl font-light text-davys-gray ">
-          Para adquirir una motocileta {""}
+          Para adquirir una motocicleta {""}
           <span className=" text-paynes-gray font-bold">
             {" "}
-            Regitrate llenando el formulario
+            Regístrate llenando el formulario
           </span>
         </p>
         <form
