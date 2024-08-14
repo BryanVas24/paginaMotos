@@ -26,7 +26,13 @@ export default function RegisterPage() {
 
   const router = useRouter();
 
-  const RegistUserFunc = async (formData: UserRegisterForm) => {
+  const RegistUserFunc = async (formData: FormData) => {
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      categoryId: formData.get("categoryId"),
+      image: formData.get("image"),
+    };
     try {
       const response = await fetch("/api/register", {
         method: "POST",
