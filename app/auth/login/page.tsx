@@ -1,4 +1,7 @@
 "use client";
+
+import Link from "next/link";
+
 export default function LoginPage() {
   return (
     <main className="flex flex-col items-center">
@@ -42,6 +45,22 @@ export default function LoginPage() {
           className="bg-stone-700 hover:bg-stone-800 w-full p-3  text-white font-black  text-xl cursor-pointer"
         />
       </form>
+      <nav className="flex flex-col space-y-4">
+        <Link
+          className="text-center  text-davys-gray  font-normal"
+          href={"/auth/register"}
+        >
+          ¿No tienes una cuenta?{" "}
+          <span className=" text-paynes-gray font-bold">Crear una</span>
+        </Link>
+        <Link
+          className="text-center text-davys-gray  font-normal"
+          href={"/auth/forgot-password"}
+        >
+          ¿Olvidaste tu contraseña?{" "}
+          <span className=" text-paynes-gray font-bold">Restablecer</span>
+        </Link>
+      </nav>
     </main>
   );
 }

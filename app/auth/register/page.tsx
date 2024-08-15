@@ -130,13 +130,6 @@ export default function RegisterPage() {
             ¿Ya tienes una cuenta?{" "}
             <span className=" text-paynes-gray font-bold">Iniciar sesión</span>
           </Link>
-          <Link
-            className="text-center text-davys-gray  font-normal"
-            href={"/auth/forgot-password"}
-          >
-            ¿Olvidaste tu contraseña?{" "}
-            <span className=" text-paynes-gray font-bold">Restablecer</span>
-          </Link>
         </nav>
       </section>
     </main>

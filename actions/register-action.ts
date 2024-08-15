@@ -7,13 +7,13 @@ export async function createUser(data: unknown) {
   try {
     //Validando los datos con el esquema de usuario
     const result = UserSchema.safeParse(data);
-
+    //Si ocurre algun error
     if (!result.success) {
       return {
         errors: result.error.issues,
       };
     }
-
+    //Aca se hashea el password
     const userData = {
       ...result.data,
       password: await bcrypt.hash(result.data.password, 10),
@@ -27,7 +27,7 @@ export async function createUser(data: unknown) {
       success: true,
     };
   } catch (error) {
-    // Manejo del error: podrías loguearlo, o devolver un error más controlado
+    // Manejo del error
     console.error("Error al crear usuario:", error);
     return {
       errors: [
