@@ -1,58 +1,40 @@
 "use client";
-import ErrorMessage from "@/components/ErrorMessage";
-import { UserRegisterForm } from "@/src/types";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { UserSchema } from "@/src/schemas";
+import { createUser } from "@/actions/register-action";
 
 export default function RegisterPage() {
-  const initialValues: UserRegisterForm = {
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-  };
-
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<UserRegisterForm>({
-    defaultValues: initialValues,
-  });
-
   const router = useRouter();
 
   const RegistUserFunc = async (formData: FormData) => {
+    //tomando los datos del formData
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
-      categoryId: formData.get("categoryId"),
-      image: formData.get("image"),
+      phone: formData.get("phone"),
+      password: formData.get("password"),
     };
-    try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+    //comparandolos con el esquema de usuario
+    const userData = UserSchema.safeParse(data);
+    //si algo no cuadra tira error
+    if (!userData.success) {
+      userData.error.issues.forEach((issue) => {
+        toast.error(issue.message);
       });
-
-      if (response.ok) {
-        toast.success("Usuario registrado correctamente");
-        reset();
-        router.push("/auth/login"); // Redirige al login después de registrar
-      } else {
-        const errorData = await response.json();
-        toast.error(errorData.error || "Error al registrar el usuario");
-      }
-    } catch (error) {
-      toast.error("Error al registrar el usuario");
+      return;
     }
+    const response = await createUser(data);
+    if (response?.errors) {
+      response.errors.forEach((issue) => {
+        toast.error(issue.message);
+      });
+      return;
+    }
+    toast.success("Usuario creado correctamente");
+    router.push("/auth/login");
   };
 
   return (
@@ -75,7 +57,7 @@ export default function RegisterPage() {
           </span>
         </p>
         <form
-          onSubmit={handleSubmit(RegistUserFunc)}
+          action={RegistUserFunc}
           className="space-y-8 p-10 bg-white w-3/4 shadow-md grid "
           noValidate
         >
@@ -86,16 +68,11 @@ export default function RegisterPage() {
               </label>
               <input
                 id="name"
+                name="name"
                 type="text"
                 placeholder="nombre de Registro"
                 className="w-full p-3 border-gray-300 border"
-                {...register("name", {
-                  required: "El Nombre de usuario es obligatorio",
-                })}
               />
-              {errors.name && (
-                <ErrorMessage>{errors.name.message}</ErrorMessage>
-              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -103,25 +80,12 @@ export default function RegisterPage() {
                 Teléfono
               </label>
               <input
+                name="phone"
                 id="phone"
                 type="tel"
                 placeholder="Teléfono de Registro"
                 className="w-full p-3 border-gray-300 border"
-                {...register("phone", {
-                  required: "El teléfono de registro es obligatorio",
-                  minLength: {
-                    value: 8,
-                    message: "El teléfono debe ser mínimo de 8 caracteres",
-                  },
-                  maxLength: {
-                    value: 8,
-                    message: "El teléfono debe ser máximo de 8 caracteres",
-                  },
-                })}
               />
-              {errors.phone && (
-                <ErrorMessage>{errors.phone.message}</ErrorMessage>
-              )}
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -130,21 +94,12 @@ export default function RegisterPage() {
                 Email
               </label>
               <input
+                name="email"
                 id="email"
                 type="email"
                 placeholder="Email de Registro"
                 className="w-full p-3 border-gray-300 border"
-                {...register("email", {
-                  required: "El Email de registro es obligatorio",
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: "E-mail no válido",
-                  },
-                })}
               />
-              {errors.email && (
-                <ErrorMessage>{errors.email.message}</ErrorMessage>
-              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -152,21 +107,12 @@ export default function RegisterPage() {
                 Password
               </label>
               <input
+                name="password"
                 id="password"
                 type="password"
                 placeholder="Password de Registro"
                 className="w-full p-3 border-gray-300 border"
-                {...register("password", {
-                  required: "El Password es obligatorio",
-                  minLength: {
-                    value: 8,
-                    message: "El Password debe ser mínimo de 8 caracteres",
-                  },
-                })}
               />
-              {errors.password && (
-                <ErrorMessage>{errors.password.message}</ErrorMessage>
-              )}
             </div>
           </div>
 

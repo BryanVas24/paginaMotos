@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ToastContainer } from "react-toastify";
 import "./globals.css";
 import NavBar from "@/components/ui/NavBar";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Motos",
@@ -18,7 +19,11 @@ export default function RootLayout({
       <body className="bg-alice-blue">
         <NavBar />
         {children}
-        <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+        <ToastContainer
+          pauseOnHover={false}
+          pauseOnFocusLoss={false}
+          autoClose={3000}
+        />
       </body>
     </html>
   );
