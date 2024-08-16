@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "./globals.css";
 import NavBar from "@/components/ui/NavBar";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/ui/Footer";
 
 export const metadata: Metadata = {
   title: "Motos",
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className="bg-alice-blue">
         <NavBar />
         {children}
+        <Footer />
         <ToastContainer
           pauseOnHover={false}
           pauseOnFocusLoss={false}
