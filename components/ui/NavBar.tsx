@@ -12,7 +12,7 @@ export default function NavBar() {
         <Link className="hover:text-davys-gray " href={"/"}>
           Inicio
         </Link>
-        <Link className="hover:text-davys-gray" href={"/motos"}>
+        <Link className="hover:text-davys-gray" href={"/servicios"}>
           Motos
         </Link>
         <Link className="hover:text-davys-gray" href={"/contacto"}>
