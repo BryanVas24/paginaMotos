@@ -122,7 +122,7 @@ export default function RegisterPage() {
             className="bg-stone-700 hover:bg-stone-800 w-full p-3 text-white font-black text-xl cursor-pointer"
           />
         </form>
-        <nav className="flex flex-col space-y-4">
+        <nav className="flex flex-col space-y-4 mb-3">
           <Link
             className="text-center  text-davys-gray  font-normal"
             href={"/auth/login"}

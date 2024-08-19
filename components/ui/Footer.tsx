@@ -3,9 +3,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-platinum text-davys-gray py-4 text-center">
-      <p className="text-sm">
-        © {currentYear} Motos. Todos los derechos reservados.
-      </p>
+      <p className="text-sm">© {currentYear} Motos.</p>
+      <p className="text-sm">Todos los derechos reservados.</p>
     </footer>
   );
 }

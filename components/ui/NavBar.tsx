@@ -3,7 +3,7 @@ import Logo from "./Logo";
 
 export default function NavBar() {
   return (
-    <nav className="flex flex-col gap-10 md:flex-row justify-evenly items-center bg-platinum mb-5">
+    <nav className="flex flex-col gap-10 md:flex-row justify-evenly items-center bg-platinum ">
       <Link href={"/"}>
         <Logo />
       </Link>
