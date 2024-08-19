@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { cardsInfo } from "@/src/utils/HomeInfo";
+import Card from "@/components/ui/Card";
 
 export default function Home() {
+  console.log(cardsInfo);
   return (
     <>
       <header className=" bg-blend-multiply bg-no-repeat bg-cover bg-center bg-[url(/Banner.PNG)] h-[70vh] bg-gray-500">
@@ -19,6 +22,11 @@ export default function Home() {
           </Link>
         </div>
       </header>
+      <section className="flex flex-wrap w-full justify-evenly  bg-platinum">
+        {cardsInfo.map((service) => (
+          <Card key={service.title} card={service} />
+        ))}
+      </section>
     </>
   );
 }
