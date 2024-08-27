@@ -118,7 +118,7 @@ export default function RegisterPage() {
 
           <input
             type="submit"
-            value="Iniciar Sesión"
+            value="Registrarse"
             className="bg-stone-700 hover:bg-stone-800 w-full p-3 text-white font-black text-xl cursor-pointer"
           />
         </form>

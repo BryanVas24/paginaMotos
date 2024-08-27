@@ -13,6 +13,16 @@ export async function createUser(data: unknown) {
         errors: result.error.issues,
       };
     }
+    // Verificar si el correo electrónico ya está registrado
+    const existingUser = await prisma.user.findUnique({
+      where: { email: result.data.email },
+    });
+
+    if (existingUser) {
+      return {
+        errors: [{ message: "El correo electrónico ya está en uso." }],
+      };
+    }
     //Aca se hashea el password
     const userData = {
       ...result.data,
