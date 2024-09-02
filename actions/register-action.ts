@@ -1,7 +1,8 @@
 "use server";
-import bcrypt from "bcrypt";
+
 import { prisma } from "@/src/libs/prisma";
 import { UserSchema } from "@/src/schemas";
+import { hashPassword } from "@/src/libs/PasswordsHandler";
 
 export async function createUser(data: unknown) {
   try {
@@ -26,7 +27,7 @@ export async function createUser(data: unknown) {
     //Aca se hashea el password
     const userData = {
       ...result.data,
-      password: await bcrypt.hash(result.data.password, 10),
+      password: await hashPassword(result.data.password),
     };
 
     await prisma.user.create({

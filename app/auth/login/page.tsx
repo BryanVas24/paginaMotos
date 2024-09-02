@@ -1,8 +1,39 @@
 "use client";
-
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import Link from "next/link";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  const handleLogin = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
+    const data = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
+
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const { token } = await response.json();
+        localStorage.setItem("token", token);
+        router.push("/");
+      } else {
+        const { message } = await response.json();
+        toast.warning(message);
+      }
+    } catch (error) {
+      toast.error("Error en el inicio de sesión");
+    }
+  };
   return (
     <main className="flex flex-col items-center">
       <h1 className="text-5xl font-black text-davys-gray ">Iniciar sesion</h1>
@@ -14,7 +45,7 @@ export default function LoginPage() {
         </span>
       </p>
       <form
-        onSubmit={() => {}}
+        onSubmit={handleLogin}
         className="space-y-8 p-10 bg-white w-3/4 md:w-1/2 shadow-md"
         noValidate
       >

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { UserSchema } from "@/src/schemas";
