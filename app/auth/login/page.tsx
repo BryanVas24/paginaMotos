@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Link from "next/link";
 
@@ -8,12 +8,17 @@ export default function LoginPage() {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-
+    //aca se crea un nuevo elemento de formData
     const formData = new FormData(event.currentTarget as HTMLFormElement);
     const data = {
       email: formData.get("email") as string,
       password: formData.get("password") as string,
     };
+    //validando que los campos lleven algo
+    if (!data.email || !data.password) {
+      toast.error("Por favor, completa todos los campos.");
+      return;
+    }
 
     try {
       const response = await fetch("/api/login", {
@@ -28,7 +33,7 @@ export default function LoginPage() {
         router.push("/");
       } else {
         const { message } = await response.json();
-        toast.warning(message);
+        toast.error(message);
       }
     } catch (error) {
       toast.error("Error en el inicio de sesión");
@@ -55,6 +60,7 @@ export default function LoginPage() {
           <input
             id="email"
             type="email"
+            name="email"
             placeholder="Email de Registro"
             className="w-full p-3  border-gray-300 border"
           />
@@ -65,6 +71,7 @@ export default function LoginPage() {
 
           <input
             type="password"
+            name="password"
             placeholder="Password de Registro"
             className="w-full p-3  border-gray-300 border"
           />
