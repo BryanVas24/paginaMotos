@@ -62,6 +62,7 @@ export default function ContactoPage() {
             alt="Imagen de mecánico de motos"
             src={"/contactImage1.jpg"}
             width={600}
+            className="mt-5"
             height={600}
           />
         </div>
