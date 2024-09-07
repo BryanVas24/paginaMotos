@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -82,7 +84,16 @@ export default function LoginPage() {
           value="Iniciar Sesión"
           className="bg-stone-700 hover:bg-stone-800 w-full p-3  text-white font-black  text-xl cursor-pointer"
         />
+        <button
+          type="button"
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          className="bg-stone-700 hover:bg-stone-800 w-full p-3 mt-4 text-white font-black text-xl  flex justify-center items-center gap-5"
+        >
+          <FcGoogle />
+          Iniciar sesión con Google
+        </button>
       </form>
+
       <nav className="flex flex-col space-y-4">
         <Link
           className="text-center  text-davys-gray  font-normal"
