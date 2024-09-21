@@ -31,7 +31,7 @@ export default function LoginPage() {
 
       if (response.ok) {
         const { token } = await response.json();
-        localStorage.setItem("token", token);
+        localStorage.setItem("tokenMotos", token);
         router.push("/");
       } else {
         const { message } = await response.json();
